@@ -1,6 +1,4 @@
-function generator(matLen, gr, grEat, pr, By, ByE, 
-    // Trp
-) {
+function generator(matLen, gr, grEat, pr, By, ByE, Trp, TrpBK) {
     let matrix = [];
     for (let i = 0; i < matLen; i++) {
         matrix[i] = [];
@@ -43,26 +41,35 @@ function generator(matLen, gr, grEat, pr, By, ByE,
             matrix[x][y] = 5;
         }
     }
-    // for (let i = 0; i < Trp; i++) {
-    //     let x = Math.floor(Math.random() * matLen);
-    //     let y = Math.floor(Math.random() * matLen);
-    //     if (matrix[x][y] == 0) {
-    //         matrix[x][y] = 6;
-    //     }
-    // }
+    for (let i = 0; i < Trp; i++) {
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
+        if (matrix[x][y] == 0) {
+            matrix[x][y] = 6;
+        }
+    }
+    for (let i = 0; i < TrpBK; i++) {
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
+        if (matrix[x][y] == 0) {
+            matrix[x][y] = 7;
+        }
+    }
+
     return matrix;
 }
 
 
 let side = 20;
 
-let matrix = generator(15, 20, 5, 5, 5, 15, );
+let matrix = generator(15, 20, 5, 5, 5, 15, 10, 10);
 var grassArr = []
 var grassEaterArr = []
 var PredaterArr = []
 var BuysArr = []
 var BuysEaterArr = []
-// var TrapArr = []
+var TrapArr = []
+var trapBreaker = []
 
 function setup() {
     frameRate(5);
@@ -91,10 +98,16 @@ function setup() {
                 var ByE = new BuysEater(x, y)
                 BuysEaterArr.push(ByE)
             }
-            // else if (matrix[y][x] == 6) {
-            //     var Trp = new Trap(x, y)
-            //     TrapArr.push(Trp)
-            // }
+            else if (matrix[y][x] == 6) {
+                var Trp = new Trap(x, y)
+                TrapArr.push(Trp)
+
+            }
+            else if (matrix[y][x] == 7) {
+                var TrpBK = new trapBreaker(x, y)
+                trapBreakerArr.push(TrpBK)
+
+            }
             else if (matrix[y][x] == 8) {
 
             }
@@ -132,36 +145,50 @@ function draw() {
                 fill("black");
                 rect(x * side, y * side, side, side);
             }
-            // else if (matrix[y][x] == 6) {
-            //     fill("brown");
-            //     rect(x * side, y * side, side, side);
-            // }
+            else if (matrix[y][x] == 6) {
+                fill("brown");
+                rect(x * side, y * side, side, side);
+            }
+            else if (matrix[y][x] == 7) {
+                fill("#f26f18");
+                rect(x * side, y * side, side, side);
+            }
 
 
         }
     }
+}
 
-    for (var i in grassArr) {
-        grassArr[i].mul();
-    }
-    for (var i in grassEaterArr) {
-        grassEaterArr[i].mul();
-        grassEaterArr[i].eat()
-    }
-    for (var i in PredaterArr) {
-        PredaterArr[i].mul();
-        PredaterArr[i].eat();
-    }
-    for (var i in BuysArr) {
-        BuysArr[i].mul();
-    }
-    for (var i in BuysEaterArr) {
-        BuysEaterArr[i].mul();
-        BuysEaterArr[i].eat();
-    }
-    // for (var i in TrapArr) {
-    //    TrapArr[i].mul();
-    // }
-    }
+for (var i in grassArr) {
+    grassArr[i].mul();
+}
+for (var i in grassEaterArr) {
+    grassEaterArr[i].mul();
+    grassEaterArr[i].eat()
+}
+for (var i in PredaterArr) {
+    PredaterArr[i].mul();
+    PredaterArr[i].eat();
+}
+for (var i in BuysArr) {
+    BuysArr[i].mul();
+}
+for (var i in BuysEaterArr) {
+    BuysEaterArr[i].mul();
+    BuysEaterArr[i].eat();
+}
+for (var i in TrapArr) {
+    TrapArr[i].eat();
+}
+for (var i in trapBreakerArr) {
+    trapBreakerArr[i].move();
+    trapBreakerArr[i].mul();
+    trapBreakerArr[i].eat();
+    trapBreakerArr[i].die();
+
+}
+
+
+
 
 
