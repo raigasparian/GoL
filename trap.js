@@ -1,4 +1,6 @@
-class Trap {
+let LivingCreature = require("./livingcreature.js") 
+
+module.exports = class Trap {
     constructor(x, y) {
         this.x = x
         this.y = y

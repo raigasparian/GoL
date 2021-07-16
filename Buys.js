@@ -1,4 +1,6 @@
-class Buys  extends LivingCreature{
+let LivingCreature = require("./livingcreature.js") 
+
+module.exports = class Buys  extends LivingCreature{
     constructor(x, y) {
         super(x,y)
         this.directions = [
@@ -31,7 +33,8 @@ class Buys  extends LivingCreature{
     mul() {
         this.multiplay++;
         var emptyCells = this.chooseCell(4);
-        var newCell = random(emptyCells);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+
 
         if (newCell && this.multiplay >= 8) {
             var newX = newCell[0];
