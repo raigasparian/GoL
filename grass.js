@@ -28,7 +28,7 @@ module.exports = class Grass extends LivingCreature {
     }
 
     mul() {
-        this.multiply++;
+        this.multiplay++;
         var emptyCells = this.chooseCell(0);
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
@@ -41,7 +41,7 @@ module.exports = class Grass extends LivingCreature {
 
             var newGrass = new Grass(newX, newY);
             grassArr.push(newGrass);
-            this.multiply = 0;
+            this.multiplay = 0;
         }
 
     }

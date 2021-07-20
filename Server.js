@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var fs = require("fs")
 
 
 app.use(express.static("."));
@@ -84,7 +85,7 @@ Trap = require("./trap")
 trapBreaker = require("./trapBreaker")
 
 
-generator(15, 20, 5, 5, 5, 15, 10, 0);
+generator(15, 20, 5, 5, 5, 15, 10, 10);
 
 grassArr = []
 grassEaterArr = []
@@ -169,10 +170,36 @@ function game() {
     io.sockets.emit("send matrix", matrix);
 }
 
+
 setInterval(game, 1000)
 
 
+var statistics = {};
+
+setInterval(function () {
+    statistics.grass = grassArr.length;
+    statistics.GrassEater = grassEaterArr.length;
+    statistics.Predater = PredaterArr.length;
+    statistics.Buys = BuysArr.length;
+    statistics.BuysEater = BuysEaterArr.length;
+    statistics.Trap = TrapArr.length;
+    statistics.trapBreaker = trapBreakerArr.length;
+
+    fs.writeFileSync("statistics.json",
+        JSON.stringify(statistics))
+
+}, 1000)
+
+let flag = true
+
 
 io.on('connection', function (socket) {
-    createobject(matrix)
-})
+
+    if (flag) {
+        createobject(matrix)
+        flag = false
+    }
+
+});
+
+
