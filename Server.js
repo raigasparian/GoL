@@ -87,6 +87,21 @@ trapBreaker = require("./trapBreaker")
 
 generator(15, 20, 5, 5, 5, 15, 10, 10);
 
+weath = "summer"
+
+setInterval(function(){
+    console.log(weath);
+    
+    if(weath == "summer") weath = "autumn"
+    else if(weath == "autumn") weath = "winter"
+    else if(weath == "winter") weath = "spring"
+    else if (weath == "spring") weath = "summer"
+
+    io.sockets.emit("send weather", weath)
+}, 3000)
+
+
+
 grassArr = []
 grassEaterArr = []
 PredaterArr = []
