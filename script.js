@@ -1,19 +1,27 @@
 socket = io();
 
 
+
 let side = 20;
 function setup() {
 
     frameRate(5);
     createCanvas(15 * side, 15 * side);
     background('#acacac');
-
+}
     weath = "summer"
 
-    socket.on("send weather", function (data){
+    socket.on("send weather", function (data) {
         weath = data;
     })
+
+function addgrass() {
+        console.log("457848454");
+            
+        socket.emit("Add Grass")
 }
+
+
 function nkarel(matrix) {
 
     for (var y = 0; y < matrix.length; y++) {

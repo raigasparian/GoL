@@ -76,6 +76,7 @@ function generator(matLen, gr, grEat, pr, By, ByE, Trp, TrpBK) {
     return matrix;
 }
 
+
 Grass = require("./Grass")
 GrassEater = require("./GrassEater")
 Predater = require("./Predater")
@@ -89,12 +90,12 @@ generator(15, 20, 5, 5, 5, 15, 10, 10);
 
 weath = "summer"
 
-setInterval(function(){
+setInterval(function () {
     console.log(weath);
-    
-    if(weath == "summer") weath = "autumn"
-    else if(weath == "autumn") weath = "winter"
-    else if(weath == "winter") weath = "spring"
+
+    if (weath == "summer") weath = "autumn"
+    else if (weath == "autumn") weath = "winter"
+    else if (weath == "winter") weath = "spring"
     else if (weath == "spring") weath = "summer"
 
     io.sockets.emit("send weather", weath)
@@ -214,6 +215,14 @@ io.on('connection', function (socket) {
         createobject(matrix)
         flag = false
     }
+
+    socket.on("Add Grass", function  addgrass(){
+
+        console.log("es avelacnum em xot")
+        /**/ 
+        /* io.sockets.emit('send matrix', matrix)*/
+
+    })
 
 });
 
